@@ -1,21 +1,19 @@
-# Effiq Pilot 001 — 一夜一贴执行脚本
+# Effiq Pilot 001 — Execution Scripts
 
 **Optimization is the product. Measurement is the moat.**
 
-本仓库是 Pilot 001 的执行脚本层，按"必然泄露"标准书写：**不含任何凭证、定价、合作方信息**。所有测量协议以内部《Protocol Lock 预注册清单》为准，结果（PASS 或 FAIL）将连同原始日志公开发布。
+Execution layer for Pilot 001. This repository is written to an "assume it leaks" standard: no credentials, no pricing, no partner information. The measurement protocol is pre-registered; all results — PASS or FAIL — will be published together with the raw logs.
 
-## 结构
+## Layout
 
-```
-tonight.sh        每晚唯一入口：更新脚本 → 跑当前阶段 → 推送日志 → 收工
-STAGE             当前阶段编号（由维护者远程切换，执行者不要手改）
-stages/           各阶段脚本
-  00-preflight.sh 飞行前检查：GPU / vLLM / 权重 hash / 冒烟推理
-```
+    tonight.sh        nightly entry point: update scripts → run current stage → push logs
+    STAGE             current stage id (switched by the maintainer; do not edit by hand)
+    stages/           stage scripts
+      00-preflight.sh pre-flight checks: GPU / vLLM / weight revision / smoke inference
 
-## 设计原则
+## Design principles
 
-- 执行者每晚动作只有三个：开机 → 一条命令 → 关机
-- 日志推送到独立的私有仓库（pod 端 token 仅有该仓库写权限）
-- 所有阶段脚本幂等：中断后原样重跑即可，不会产生重复实验数据
-- 预注册纪律：数据采集阶段的判定规则冻结后不可静默修改，修改只能开新版本
+- One operator action per night: start the pod → run one command → stop the pod
+- Logs are pushed to a separate private repository; the pod-side token holds write access to that repository only
+- Stage scripts are idempotent: re-running after an interruption is safe and produces no duplicate experiment data
+- Pre-registration discipline: rules frozen before data collection cannot be modified silently — changes require a new versioned protocol
