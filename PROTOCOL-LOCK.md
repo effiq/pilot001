@@ -47,3 +47,49 @@ The following decisions may be made from data inside the window, but every chang
 Every figure published from this pilot is reproducible from artifacts: raw logs, configuration files, and a CI computation script that recomputes the reported interval from the raw data in one command. The PASS/FAIL verdict is produced by the statistics script from raw logs — not by narrative.
 ￼
 Frozen 2026-10-05. Signed by the operator. This document ships before any result does.
+---
+
+# Amendment Log
+
+All amendments are: (a) made **before any formal L4 measurement data was collected**;
+(b) justified by archived, hash-pinned evidence in `effiq/pilot-logs`;
+(c) signed by the project owner. The frozen sections above remain unchanged except
+as stated below.
+
+## Amendment-01 · Arm B composition (2026-10-05)
+
+**Change (L3):** Arm B = "FP8-or-INT8 quantization + speculative decoding"
+→ **Arm B = "FP8 dynamic quantization only"** (vLLM built-in, no custom kernels).
+
+**Evidence chain:**
+1. ngram speculative acceptance on the declared workload: **0.134 overall**
+   (0.145 / 0.154 / 0.105 at 4K / 8K / 16K tiers), far below the Day-7 checkpoint
+   threshold of 0.5 — the protocol's own switch clause was invoked.
+   Evidence: pilot-logs `2026-10-05/02-armb-probe/acceptance.jsonl`,
+   sha256 `fff7dd1fb34e23a98bb0149acc3a06385fb7baf43b7c5cf52da66f851d287d65`.
+2. No official EAGLE draft head exists for Qwen2.5-14B-Instruct
+   (official EAGLE weight table lists only a community head for this model).
+3. The community head `Zjcxy-SmartAI/Eagle-Qwen2.5-14B-Instruct`
+   (architecture `Qwen2ForCausalLMEagle`) is **not supported by vLLM** —
+   SpeculativeConfig validation fails at engine init; qwen2-eagle support
+   exists only in SGLang, and switching engines is outside the locked
+   boundary. Evidence: pilot-logs `2026-10-05/03-eagle-probe/stage.log`.
+
+Exploratory (non-CI) FP8-vs-BF16 speedups, sequential same-night, batch-1:
+1.46× / 1.41× / 1.30× at 4K / 8K / 16K. These numbers are indicative context
+for this amendment and **never enter the L4 confidence interval**.
+
+## Amendment-02 · L4 interleaving implementation (2026-10-05)
+
+**Change (L4):** request-level interleaving (A,B,A,B…) → **within-run
+block-crossover**: each run measures the full prompt set under Arm A and
+Arm B in two blocks ≤ ~15 minutes apart; run order alternates
+(A-first on odd runs, B-first on even runs); pairing is by `request_id`.
+
+**Justification:** request-level interleaving requires both engines resident
+in GPU memory simultaneously. On the locked 48 GB L40S this is infeasible:
+BF16 weights ≈ 28 GB + FP8 weights ≈ 14.3 GB leave &lt; 4 GB, insufficient for
+16K-token KV blocks. The crossover preserves the pairing and cancels
+systematic order effects across runs. **The statistical unit is unchanged:
+paired bootstrap over runs (n = 6, extendable to 10), PASS iff the 95% CI
+lower bound of the per-request throughput ratio ≥ 1.20×.**
