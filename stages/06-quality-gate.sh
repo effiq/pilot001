@@ -175,6 +175,12 @@ fi
 
 # ---------- run bookkeeping: resume an incomplete run dir if one exists ----------
 note "0. run bookkeeping"
+LATEST="$(ls -dt "$LOGS_DIR"/*/06-quality-gate/run_* 2>/dev/null | head -1)"
+if [ -n "$LATEST" ] && [ -f "$LATEST/COMPLETE" ]; then
+  echo "STAGE 06 already COMPLETE: $LATEST"
+  echo "verdict: $LATEST/verdict_q.txt  (to recompute from logs: bash stages/06-quality-gate.sh --verify)"
+  exit 0
+fi
 RUN_DIR=""
 for cand in $(ls -dt "$LOGS_DIR"/*/06-quality-gate/run_* 2>/dev/null); do
   if [ ! -f "$cand/COMPLETE" ]; then RUN_DIR="$cand"; echo "resuming incomplete run dir: $RUN_DIR"; break; fi
