@@ -71,5 +71,5 @@ Note this entry prints descriptive statistics only, by design: the CI lives excl
 
 ## 5. What you cannot reproduce without the original accounts
 
-- The OpenRouter judge calls themselves (they cost ≈ $0.25 and are archived verbatim in `judge_raw.jsonl`; Stage 06 `--verify` recomputes the verdict from that archive).
+- The OpenRouter judge calls themselves (they are archived verbatim in `judge_raw.jsonl`; Stage 06 `--verify` recomputes the verdict from that archive).
 - The GPU measurements (archived as `raw.jsonl` with per-request timing and token hashes). Rerunning Stage 04 on your own L40S produces *new* data under the same protocol — which we would genuinely welcome as an independent replication.

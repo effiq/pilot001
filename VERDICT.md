@@ -100,11 +100,7 @@ Full hashes live in the run summaries inside the logs repository and are recompu
 
 Protocol lock: commit `3faaaa7`. Amendments: commit `d0eabf3`.
 
-## 7. Cost of the whole experiment
-
-Total spend to produce this verdict: **< $6 of GPU rental** (calibration + recon + 6 formal runs + quality gate on an interruptible L40S) and **≈ $0.25 of judge API fees** (150 items × 2 responses). Rigorous measurement is not expensive; *not* measuring is.
-
-## 8. Operational incidents, disclosed
+## 7. Operational incidents, disclosed
 
 - One formal run appeared dead mid-flight; in fact the web terminal's websocket had detached while the process completed in the background (terminal disconnect ≠ process death). No data lost; the retry logic correctly never fired.
 - The quality gate process did die once mid-run (host hiccup; cause not captured). The resume design absorbed it: re-running the same command continued from the last archived row with zero rework beyond one engine load.
