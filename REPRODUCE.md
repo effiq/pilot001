@@ -1,5 +1,8 @@
 # Reproduce the Pilot 001 verdict
 
+> **Custody note (2026-10-24):** the raw-evidence repository `effiq/pilot-logs` is private custody as of this date; the archive remains intact under sha256 custody and is available on request for audit. References below to cloning `pilot-logs` describe the public-archive period and are kept unchanged for the record.
+
+
 Every number in [VERDICT.md](VERDICT.md) is recomputed from archived raw logs by scripts in this repository. No GPU is needed for verification (only the original measurement needed one). Requirements: `python3` ≥ 3.10 with `numpy`.
 
 ## 1. Layout

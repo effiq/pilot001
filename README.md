@@ -13,6 +13,6 @@ stages/           stage scripts
 
 ## Design principles
 
-- Logs are pushed to a separate public repository, [effiq/pilot-logs](https://github.com/effiq/pilot-logs); the pod-side token holds write access to that repository only
+- Logs are pushed to a dedicated evidence repository (private custody since 2026-10-24 — available on request for audit); the pod-side token holds write access to that repository only
 - Stage scripts are idempotent: re-running after an interruption is safe and produces no duplicate experiment data
 - Pre-registration discipline: rules frozen before data collection cannot be modified silently — changes require a new versioned protocol
