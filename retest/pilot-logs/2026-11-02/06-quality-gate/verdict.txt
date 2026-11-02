@@ -1,0 +1,31 @@
+STAGE 05 VERDICT — PERFORMANCE HALF (paired bootstrap over runs)
+threshold=1.2 bootstrap_seed=20261006 resamples=100000
+complete runs found: 6 (required: 6)
+
+  2026-10-05/04-formal/run_1  raw_jsonl_sha256=59085b064d6367144f747c2cf9880d0988d5f90fda5ec2335be7b94bb2b69410
+  2026-10-05/04-formal/run_2  raw_jsonl_sha256=35f29acd18e00e312b5b77962e174b838f6e4111aa3e1f2b845d288207e39d57
+  2026-10-05/04-formal/run_3  raw_jsonl_sha256=3ef6de662a7d4f036af4128cc993dad8a1801629b6efabc1ea0bc6c6b1cb6f90
+  2026-10-05/04-formal/run_4  raw_jsonl_sha256=6dfc00364abb730038020b98c8e473b7ba28fa3f8e5a96de6c7603dde37fa827
+  2026-10-06/04-formal/run_5  raw_jsonl_sha256=5034afd8eb7468693029614c054a9ab4c2846c55321da56ad43171f4c79481c6
+  2026-10-06/04-formal/run_6  raw_jsonl_sha256=b25c577a85cc0d26c02af0f8459ef5e8bbdc4c8a0df614c884e9b259d7520f39
+
+[runs included]
+  run 1 (A-first): mean_log_ratio=0.3456 -> ratio=1.413x
+  run 2 (B-first): mean_log_ratio=0.2954 -> ratio=1.344x
+  run 3 (A-first): mean_log_ratio=0.3611 -> ratio=1.435x
+  run 4 (B-first): mean_log_ratio=0.3618 -> ratio=1.436x
+  run 5 (A-first): mean_log_ratio=0.3672 -> ratio=1.444x
+  run 6 (B-first): mean_log_ratio=0.3700 -> ratio=1.448x
+
+[overall verdict statistic]
+mean ratio (geometric, over runs): 1.419x
+95% bootstrap CI: [1.387x, 1.442x]
+criterion: CI lower bound >= 1.2x  ->  PASS
+
+[per-tier breakdown (same method)]
+tier  4096: ratio=1.428x CI=[1.331x, 1.488x] PASS
+tier  8192: ratio=1.433x CI=[1.414x, 1.445x] PASS
+tier 16384: ratio=1.397x CI=[1.389x, 1.411x] PASS
+
+SCOPE: performance half only. Final PASS additionally requires the L5 blind quality gate (0 pp).
+This file is reproducible: same logs + same seeds -> identical numbers (--verify).

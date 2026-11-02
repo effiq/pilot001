@@ -1,0 +1,32 @@
+STAGE 06 VERDICT — L5 BLIND QUALITY GATE
+tolerance=0.1 (10-pt scale; pre-registered: quality degradation > 0.1 -> FAIL)
+judge blinded to arm identity; judge model archived per row
+
+  frozen_set.jsonl: sha256=728b2f8354701a301467afaf52d643d12a679af5c41542bb1701634e4235cf7d
+  gen_A.jsonl: sha256=51f5ecac58050fa92fc37e12427e8db6af941180a13112bcc2f30c194c5916c7
+  gen_B.jsonl: sha256=7aa9030e5018824387a38b8e70b02420d4d217a74bae225788c8246b98351b0c
+  judge_raw.jsonl: sha256=93406dd3d8cac473ca2900d5202d0c2bd20c924d7eaf75e268e2c1a0359931f4
+  blind_map.jsonl: sha256=380a36a652f64065dae3d8d8846161d7e62a962eb5f6c9d06c3a7e1e8a1079a5
+
+judged items: 150 / 150
+
+judge model(s) used: deepseek/deepseek-chat-v3-0324
+
+[per-axis results: mean over 150 items, 10-pt scale]
+  correctness           : A(bf16)=6.487  B(fp8)=6.700  delta=+0.213
+  instruction_following : A(bf16)=6.087  B(fp8)=6.267  delta=+0.180
+  clarity               : A(bf16)=5.820  B(fp8)=5.873  delta=+0.053
+
+[overall] pooled delta (B - A): +0.149
+
+criterion: overall delta >= -0.1 AND every axis delta >= -0.1  ->  PASS
+
+[descriptive] textually identical outputs across arms: 0/150
+[descriptive] per-form pooled delta (B - A):
+  doc_qa          : -0.387 (n=50)
+  code_completion : +0.973 (n=50)
+  summarization   : -0.140 (n=50)
+
+[descriptive] 95% bootstrap CI of overall delta: [-0.144, +0.451] (seed=20261006, resamples=100000; the gate decision uses the point estimates above, per protocol)
+
+This file is reproducible from the archived logs alone: bash stages/06-quality-gate.sh --verify <run_dir>

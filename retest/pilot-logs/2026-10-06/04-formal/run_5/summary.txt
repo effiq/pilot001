@@ -1,0 +1,10 @@
+FORMAL RUN 5/6 — DESCRIPTIVE ONLY, NO CI
+model=Qwen/Qwen2.5-14B-Instruct run_seed=20261008 order=A-first
+scripts_rev=79340abd27d90b160654669f1e757edc31ce7b3f
+raw_jsonl_sha256=5034afd8eb7468693029614c054a9ab4c2846c55321da56ad43171f4c79481c6 rows=54
+
+tier  4096: A-bf16: mean=331.3 tps n=9 | B-fp8: mean=484.9 tps n=9
+tier  8192: A-bf16: mean=520.8 tps n=9 | B-fp8: mean=748.0 tps n=9
+tier 16384: A-bf16: mean=938.8 tps n=9 | B-fp8: mean=1323.5 tps n=9
+
+CI intentionally withheld until all runs complete (anti-p-hacking).

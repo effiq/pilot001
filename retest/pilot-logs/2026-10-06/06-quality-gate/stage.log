@@ -1,0 +1,535 @@
+
+=== 0. run bookkeeping ===
+resuming incomplete run dir: /root/effiq/pilot-logs/2026-10-06/06-quality-gate/run_1
+
+=== 1. time / host / GPU / tool versions ===
+Tue Oct  6 06:45:24 UTC 2026
+8078835de55c
+name, driver_version, memory.total [MiB]
+NVIDIA L40S, 580.159.03, 46068 MiB
+scripts_rev=c568331a422b30169b1d24a9e4d0cd56d7c0e5ce
+vllm: 0.31.0 | torch: 2.13.0+cu130 | gpu: NVIDIA L40S
+banner: L5 BLIND QUALITY GATE — final gate of Pilot 001
+
+=== 2. frozen evaluation set (seed 20261003, 150 items) ===
+frozen set already present: /root/effiq/pilot-logs/2026-10-06/06-quality-gate/run_1/frozen_set.jsonl (150 items) — resume, no rebuild
+frozen_set_sha256=728b2f8354701a301467afaf52d643d12a679af5c41542bb1701634e4235cf7d
+
+=== 3. generation: arm A (BF16 reference) ===
+arm A-bf16: 150 already generated, 0 to go
+arm A-bf16: nothing to do — resume complete
+
+=== 4. generation: arm B (FP8 dynamic, Amendment-01) ===
+arm B-fp8: 22 already generated, 128 to go
+Fetching 18 files:   0%|          | 0/18 [00:00<?, ?it/s]Fetching 18 files: 100%|██████████| 18/18 [00:00<00:00, 2009.94it/s]
+(MainProcess pid=5800) INFO 10-06 06:45:36 [api_utils.py:286] non-default args: {'max_model_len': 20480, 'enable_prefix_caching': False, 'disable_log_stats': True, 'quantization': 'fp8', 'model': 'Qwen/Qwen2.5-14B-Instruct'}
+(MainProcess pid=5800) INFO 10-06 06:45:36 [model.py:699] Resolved architecture: Qwen2ForCausalLM
+(MainProcess pid=5800) INFO 10-06 06:45:36 [model.py:2109] Using max model len 20480
+(MainProcess pid=5800) INFO 10-06 06:45:36 [scheduler.py:308] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(MainProcess pid=5800) WARNING 10-06 06:45:37 [weight_utils.py:343] --quantization fp8 is deprecated for online quantization; use --quantization fp8_per_tensor instead.
+(MainProcess pid=5800) INFO 10-06 06:45:37 [kernel.py:408] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+(EngineCore pid=6178) INFO 10-06 06:45:39 [core.py:129] Initializing a V1 LLM engine (v0.31.0) with config: model='Qwen/Qwen2.5-14B-Instruct', speculative_config=None, tokenizer='Qwen/Qwen2.5-14B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=main, tokenizer_revision=main, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=20480, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=fp8, quantization_config=None, enforce_eager=False, aux_output_config=AuxOutputConfig(enable_return_routed_experts=False, max_bytes=None), kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=Qwen/Qwen2.5-14B-Instruct, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [8192], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 512, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+(EngineCore pid=6178) INFO 10-06 06:45:39 [parallel_state.py:1825] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_146aed3370c1447f853a31500c831aad backend=nccl
+(EngineCore pid=6178) INFO 10-06 06:45:39 [parallel_state.py:2269] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=6178) INFO 10-06 06:45:39 [gpu_worker.py:479] Using V2 Model Runner
+(EngineCore pid=6178) INFO 10-06 06:45:40 [model_runner.py:375] Loading model from scratch...
+(EngineCore pid=6178) INFO 10-06 06:45:40 [__init__.py:758] Selected CutlassFP8ScaledMMLinearKernel for Fp8PerTensorOnlineLinearMethod
+(EngineCore pid=6178) INFO 10-06 06:45:41 [cuda.py:526] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore pid=6178) INFO 10-06 06:45:41 [flash_attn.py:1167] Using FlashAttention version 2
+(EngineCore pid=6178) INFO 10-06 06:45:41 [base_loader.py:121] Quantized 192 layers of types: mlp.down_proj: 48 (from linear: fp8_per_tensor_static); mlp.gate_up_proj: 48 (from linear: fp8_per_tensor_static); self_attn.o_proj: 48 (from linear: fp8_per_tensor_static); self_attn.qkv_proj: 48 (from linear: fp8_per_tensor_static)
+(EngineCore pid=6178) INFO 10-06 06:45:42 [weight_utils.py:1063] Filesystem type for checkpoints: OVERLAY. Checkpoint size: 27.51 GiB. Available RAM: 74.02 GiB.
+(EngineCore pid=6178) INFO 10-06 06:45:42 [weight_utils.py:1086] Auto-prefetch is disabled because the filesystem (OVERLAY) is not a recognized network FS (NFS/Lustre). If you want to force prefetching, start vLLM with --safetensors-load-strategy=prefetch.
+Loading safetensors checkpoint shards:   0% Completed | 0/8 [00:00<?, ?it/s]
+(EngineCore pid=6178) WARNING 10-06 06:45:42 [layerwise.py:207] Allocating 0.0 MB of device memory to buffers to load ['QKVParallelLinear', 'QKVParallelLinear'] layers. This extra memory usage can be avoided by ordering weights by their parent layer when reloading.
+Loading safetensors checkpoint shards:  12% Completed | 1/8 [00:00<00:02,  2.37it/s]
+Loading safetensors checkpoint shards:  25% Completed | 2/8 [00:00<00:02,  2.51it/s]
+Loading safetensors checkpoint shards:  38% Completed | 3/8 [00:01<00:02,  2.46it/s]
+Loading safetensors checkpoint shards:  50% Completed | 4/8 [00:01<00:01,  2.44it/s]
+Loading safetensors checkpoint shards:  62% Completed | 5/8 [00:02<00:01,  2.51it/s]
+Loading safetensors checkpoint shards:  75% Completed | 6/8 [00:02<00:00,  2.52it/s]
+Loading safetensors checkpoint shards:  88% Completed | 7/8 [00:02<00:00,  2.45it/s]
+Loading safetensors checkpoint shards: 100% Completed | 8/8 [00:03<00:00,  2.84it/s]
+Loading safetensors checkpoint shards: 100% Completed | 8/8 [00:03<00:00,  2.60it/s]
+
+(EngineCore pid=6178) INFO 10-06 06:45:45 [default_loader.py:484] Loading weights took 3.15 seconds
+(EngineCore pid=6178) INFO 10-06 06:45:46 [model_runner.py:407] Model loading took 15.39 GiB memory and 6.327157 seconds
+(EngineCore pid=6178) INFO 10-06 06:45:46 [topk_topp_sampler.py:124] Using FlashInfer for top-p & top-k sampling.
+(EngineCore pid=6178) INFO 10-06 06:45:46 [torch_utils.py:286] Reducing Torch threads from 27 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore pid=6178) INFO 10-06 06:45:46 [utils.py:343] Using LBNHC KV cache layout.
+(EngineCore pid=6178) INFO 10-06 06:45:48 [caching.py:342] reconstructed serializable fn from standalone compile artifacts. num_artifacts=3 num_submods=49
+(EngineCore pid=6178) INFO 10-06 06:45:48 [decorators.py:312] Directly load AOT compilation from path /root/.cache/vllm/torch_compile_cache/torch_aot_compile/3627b5a22fe5fedcdc304bbb0b8d2baf4d2f342716adddd5504d4658fdf36549/rank_0_0/model
+(EngineCore pid=6178) INFO 10-06 06:45:48 [monitor.py:53] torch.compile took 0.52 s in total
+(EngineCore pid=6178) INFO 10-06 06:45:49 [monitor.py:81] Initial profiling/warmup run took 1.16 s
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   2%|▏         | 1/51 [00:00<00:06,  7.93it/s]Capturing CUDA graphs (PIECEWISE):   4%|▍         | 2/51 [00:00<00:05,  8.28it/s]Capturing CUDA graphs (PIECEWISE):   6%|▌         | 3/51 [00:00<00:06,  7.04it/s]Capturing CUDA graphs (PIECEWISE):   8%|▊         | 4/51 [00:00<00:06,  6.76it/s]Capturing CUDA graphs (PIECEWISE):  10%|▉         | 5/51 [00:00<00:06,  7.18it/s]Capturing CUDA graphs (PIECEWISE):  12%|█▏        | 6/51 [00:00<00:05,  7.64it/s]Capturing CUDA graphs (PIECEWISE):  14%|█▎        | 7/51 [00:00<00:05,  7.97it/s]Capturing CUDA graphs (PIECEWISE):  16%|█▌        | 8/51 [00:01<00:06,  6.72it/s]Capturing CUDA graphs (PIECEWISE):  18%|█▊        | 9/51 [00:01<00:05,  7.25it/s]Capturing CUDA graphs (PIECEWISE):  20%|█▉        | 10/51 [00:01<00:05,  7.78it/s]Capturing CUDA graphs (PIECEWISE):  22%|██▏       | 11/51 [00:01<00:04,  8.17it/s]Capturing CUDA graphs (PIECEWISE):  24%|██▎       | 12/51 [00:01<00:04,  8.50it/s]Capturing CUDA graphs (PIECEWISE):  25%|██▌       | 13/51 [00:01<00:04,  7.64it/s]Capturing CUDA graphs (PIECEWISE):  27%|██▋       | 14/51 [00:01<00:04,  7.72it/s]Capturing CUDA graphs (PIECEWISE):  29%|██▉       | 15/51 [00:01<00:04,  8.17it/s]Capturing CUDA graphs (PIECEWISE):  31%|███▏      | 16/51 [00:02<00:04,  8.56it/s]Capturing CUDA graphs (PIECEWISE):  33%|███▎      | 17/51 [00:02<00:04,  7.88it/s]Capturing CUDA graphs (PIECEWISE):  35%|███▌      | 18/51 [00:02<00:04,  8.15it/s]Capturing CUDA graphs (PIECEWISE):  39%|███▉      | 20/51 [00:02<00:03,  9.82it/s]Capturing CUDA graphs (PIECEWISE):  43%|████▎     | 22/51 [00:02<00:03,  9.10it/s]Capturing CUDA graphs (PIECEWISE):  47%|████▋     | 24/51 [00:02<00:02, 10.00it/s]Capturing CUDA graphs (PIECEWISE):  51%|█████     | 26/51 [00:03<00:02, 10.88it/s]Capturing CUDA graphs (PIECEWISE):  55%|█████▍    | 28/51 [00:03<00:02,  9.31it/s]Capturing CUDA graphs (PIECEWISE):  59%|█████▉    | 30/51 [00:03<00:02, 10.21it/s]Capturing CUDA graphs (PIECEWISE):  63%|██████▎   | 32/51 [00:03<00:01, 11.04it/s]Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 34/51 [00:03<00:01, 11.81it/s]Capturing CUDA graphs (PIECEWISE):  71%|███████   | 36/51 [00:04<00:01, 10.36it/s]Capturing CUDA graphs (PIECEWISE):  75%|███████▍  | 38/51 [00:04<00:01, 11.27it/s]Capturing CUDA graphs (PIECEWISE):  78%|███████▊  | 40/51 [00:04<00:00, 11.84it/s]Capturing CUDA graphs (PIECEWISE):  82%|████████▏ | 42/51 [00:04<00:00, 12.51it/s]Capturing CUDA graphs (PIECEWISE):  86%|████████▋ | 44/51 [00:04<00:00, 10.33it/s]Capturing CUDA graphs (PIECEWISE):  90%|█████████ | 46/51 [00:04<00:00, 11.34it/s]Capturing CUDA graphs (PIECEWISE):  94%|█████████▍| 48/51 [00:04<00:00, 12.18it/s]Capturing CUDA graphs (PIECEWISE):  98%|█████████▊| 50/51 [00:05<00:00, 12.60it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 51/51 [00:05<00:00,  9.62it/s]
+Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00, 19.17it/s]Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00, 19.15it/s]
+(EngineCore pid=6178) INFO 10-06 06:45:56 [model_runner.py:1087] Graph capturing finished in 6 secs, took 0.49 GiB
+(EngineCore pid=6178) INFO 10-06 06:45:57 [gpu_worker.py:692] Available KV cache memory: 23.51 GiB
+(EngineCore pid=6178) INFO 10-06 06:45:57 [gpu_worker.py:707] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.9200 is equivalent to --gpu-memory-utilization=0.9078 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9322. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+(EngineCore pid=6178) INFO 10-06 06:45:57 [kv_cache_utils.py:2464] GPU KV cache size: 128,400 tokens, Maximum concurrency for 20,480 tokens per request: 6.27x
+(EngineCore pid=6178) INFO 10-06 06:45:57 [kernel_warmup.py:172] JIT kernel warmup starting.
+(EngineCore pid=6178) INFO 10-06 06:45:57 [kernel_warmup.py:185] JIT kernel warmup finished in 0.00s.
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   2%|▏         | 1/51 [00:00<00:06,  7.67it/s]Capturing CUDA graphs (PIECEWISE):   4%|▍         | 2/51 [00:00<00:05,  8.24it/s]Capturing CUDA graphs (PIECEWISE):   6%|▌         | 3/51 [00:00<00:05,  8.40it/s]Capturing CUDA graphs (PIECEWISE):   8%|▊         | 4/51 [00:00<00:05,  8.56it/s]Capturing CUDA graphs (PIECEWISE):  10%|▉         | 5/51 [00:00<00:06,  6.67it/s]Capturing CUDA graphs (PIECEWISE):  12%|█▏        | 6/51 [00:00<00:07,  6.09it/s]Capturing CUDA graphs (PIECEWISE):  14%|█▎        | 7/51 [00:00<00:06,  6.75it/s]Capturing CUDA graphs (PIECEWISE):  16%|█▌        | 8/51 [00:01<00:05,  7.31it/s]Capturing CUDA graphs (PIECEWISE):  18%|█▊        | 9/51 [00:01<00:05,  7.85it/s]Capturing CUDA graphs (PIECEWISE):  20%|█▉        | 10/51 [00:01<00:04,  8.27it/s]Capturing CUDA graphs (PIECEWISE):  22%|██▏       | 11/51 [00:01<00:05,  6.84it/s]Capturing CUDA graphs (PIECEWISE):  24%|██▎       | 12/51 [00:01<00:05,  7.48it/s]Capturing CUDA graphs (PIECEWISE):  25%|██▌       | 13/51 [00:01<00:04,  8.00it/s]Capturing CUDA graphs (PIECEWISE):  27%|██▋       | 14/51 [00:01<00:04,  8.39it/s]Capturing CUDA graphs (PIECEWISE):  29%|██▉       | 15/51 [00:01<00:04,  8.75it/s]Capturing CUDA graphs (PIECEWISE):  31%|███▏      | 16/51 [00:02<00:05,  6.82it/s]Capturing CUDA graphs (PIECEWISE):  35%|███▌      | 18/51 [00:02<00:03,  8.79it/s]Capturing CUDA graphs (PIECEWISE):  39%|███▉      | 20/51 [00:02<00:03, 10.15it/s]Capturing CUDA graphs (PIECEWISE):  43%|████▎     | 22/51 [00:02<00:02, 11.13it/s]Capturing CUDA graphs (PIECEWISE):  47%|████▋     | 24/51 [00:02<00:02,  9.49it/s]Capturing CUDA graphs (PIECEWISE):  51%|█████     | 26/51 [00:03<00:02, 10.52it/s]Capturing CUDA graphs (PIECEWISE):  55%|█████▍    | 28/51 [00:03<00:02, 11.32it/s]Capturing CUDA graphs (PIECEWISE):  59%|█████▉    | 30/51 [00:03<00:02,  9.49it/s]Capturing CUDA graphs (PIECEWISE):  63%|██████▎   | 32/51 [00:03<00:01, 10.47it/s]Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 34/51 [00:03<00:01, 11.45it/s]Capturing CUDA graphs (PIECEWISE):  71%|███████   | 36/51 [00:03<00:01, 12.16it/s]Capturing CUDA graphs (PIECEWISE):  75%|███████▍  | 38/51 [00:04<00:01, 10.48it/s]Capturing CUDA graphs (PIECEWISE):  78%|███████▊  | 40/51 [00:04<00:00, 11.42it/s]Capturing CUDA graphs (PIECEWISE):  82%|████████▏ | 42/51 [00:04<00:00, 12.20it/s]Capturing CUDA graphs (PIECEWISE):  86%|████████▋ | 44/51 [00:04<00:00, 12.87it/s]Capturing CUDA graphs (PIECEWISE):  90%|█████████ | 46/51 [00:04<00:00, 10.45it/s]Capturing CUDA graphs (PIECEWISE):  94%|█████████▍| 48/51 [00:04<00:00, 11.52it/s]Capturing CUDA graphs (PIECEWISE):  98%|█████████▊| 50/51 [00:05<00:00, 12.41it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 51/51 [00:05<00:00,  9.88it/s]
+Capturing CUDA graphs (FULL):   0%|          | 0/35 [00:00<?, ?it/s]Capturing CUDA graphs (FULL):   6%|▌         | 2/35 [00:00<00:01, 19.03it/s]Capturing CUDA graphs (FULL):  11%|█▏        | 4/35 [00:00<00:01, 17.89it/s]Capturing CUDA graphs (FULL):  17%|█▋        | 6/35 [00:00<00:01, 18.71it/s]Capturing CUDA graphs (FULL):  26%|██▌       | 9/35 [00:00<00:01, 19.38it/s]Capturing CUDA graphs (FULL):  34%|███▍      | 12/35 [00:00<00:01, 19.73it/s]Capturing CUDA graphs (FULL):  40%|████      | 14/35 [00:00<00:01, 19.64it/s]Capturing CUDA graphs (FULL):  46%|████▌     | 16/35 [00:00<00:00, 19.20it/s]Capturing CUDA graphs (FULL):  54%|█████▍    | 19/35 [00:00<00:00, 20.32it/s]Capturing CUDA graphs (FULL):  63%|██████▎   | 22/35 [00:01<00:00, 21.16it/s]Capturing CUDA graphs (FULL):  71%|███████▏  | 25/35 [00:01<00:00, 21.65it/s]Capturing CUDA graphs (FULL):  80%|████████  | 28/35 [00:01<00:00, 22.15it/s]Capturing CUDA graphs (FULL):  89%|████████▊ | 31/35 [00:01<00:00, 21.57it/s]Capturing CUDA graphs (FULL):  97%|█████████▋| 34/35 [00:01<00:00, 22.53it/s]Capturing CUDA graphs (FULL): 100%|██████████| 35/35 [00:01<00:00, 21.02it/s]
+(EngineCore pid=6178) INFO 10-06 06:46:05 [model_runner.py:1087] Graph capturing finished in 8 secs, took 0.29 GiB
+(EngineCore pid=6178) INFO 10-06 06:46:05 [gpu_worker.py:892] CUDA graph pool memory: 0.29 GiB (actual), 0.54 GiB (estimated), difference: 0.25 GiB (83.4%).
+(EngineCore pid=6178) INFO 10-06 06:46:05 [gpu_worker.py:955] Free memory on device (43.97/44.39 GiB) on startup. Desired GPU memory utilization is (0.92, 40.84 GiB). Actual usage is 15.94 GiB for consumed memory (weights + non-torch), 1.39 GiB for peak activation, and 0.29 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=24772657132` (23.07 GiB) to fit into requested memory, or `--kv-cache-memory=28130635264` (26.2 GiB) to fully utilize gpu memory. Current kv cache memory in use is 23.51 GiB.
+(EngineCore pid=6178) INFO 10-06 06:46:06 [jit_monitor.py:84] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+(EngineCore pid=6178) INFO 10-06 06:46:06 [core.py:373] init engine (profile, create kv cache, warmup model) took 19.67 s (compilation: 0.52 s)
+(EngineCore pid=6178) INFO 10-06 06:46:06 [kernel.py:408] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+(MainProcess pid=5800) INFO 10-06 06:46:07 [hf.py:646] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 64.72it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.88s/it, est. speed input: 760.56 toks/s, output: 31.44 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.88s/it, est. speed input: 760.56 toks/s, output: 31.44 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.88s/it, est. speed input: 760.56 toks/s, output: 31.44 toks/s]
+<stdin>:53: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  fz-022 B-fp8 out_tokens=342 wall=10.9s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.67it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.67s/it, est. speed input: 565.63 toks/s, output: 32.32 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.67s/it, est. speed input: 565.63 toks/s, output: 32.32 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.67s/it, est. speed input: 565.63 toks/s, output: 32.32 toks/s]
+  fz-023 B-fp8 out_tokens=474 wall=14.7s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.59it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.95s/it, est. speed input: 393.99 toks/s, output: 33.17 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.95s/it, est. speed input: 393.99 toks/s, output: 33.17 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.95s/it, est. speed input: 393.99 toks/s, output: 33.17 toks/s]
+  fz-024 B-fp8 out_tokens=695 wall=21.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.68it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.01s/it, est. speed input: 586.25 toks/s, output: 32.20 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.01s/it, est. speed input: 586.25 toks/s, output: 32.20 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.01s/it, est. speed input: 586.25 toks/s, output: 32.20 toks/s]
+  fz-025 B-fp8 out_tokens=451 wall=14.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.73it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.09s/it, est. speed input: 626.61 toks/s, output: 31.94 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.09s/it, est. speed input: 626.61 toks/s, output: 31.94 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.09s/it, est. speed input: 626.61 toks/s, output: 31.94 toks/s]
+  fz-026 B-fp8 out_tokens=418 wall=13.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.14it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.23s/it, est. speed input: 372.14 toks/s, output: 33.24 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.23s/it, est. speed input: 372.14 toks/s, output: 33.24 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.23s/it, est. speed input: 372.14 toks/s, output: 33.24 toks/s]
+  fz-027 B-fp8 out_tokens=739 wall=22.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 40.90it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.99s/it, est. speed input: 344.55 toks/s, output: 33.34 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.99s/it, est. speed input: 344.55 toks/s, output: 33.34 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.99s/it, est. speed input: 344.55 toks/s, output: 33.34 toks/s]
+  fz-028 B-fp8 out_tokens=800 wall=24.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 39.54it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.79s/it, est. speed input: 561.74 toks/s, output: 32.19 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.79s/it, est. speed input: 561.74 toks/s, output: 32.19 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.79s/it, est. speed input: 561.74 toks/s, output: 32.19 toks/s]
+  fz-029 B-fp8 out_tokens=476 wall=14.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.21it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.74s/it, est. speed input: 401.20 toks/s, output: 32.98 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.74s/it, est. speed input: 401.20 toks/s, output: 32.98 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.74s/it, est. speed input: 401.20 toks/s, output: 32.98 toks/s]
+  fz-030 B-fp8 out_tokens=684 wall=20.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.93it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.78s/it, est. speed input: 418.91 toks/s, output: 32.96 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.78s/it, est. speed input: 418.91 toks/s, output: 32.96 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.78s/it, est. speed input: 418.91 toks/s, output: 32.96 toks/s]
+  fz-031 B-fp8 out_tokens=652 wall=19.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.91it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.59s/it, est. speed input: 568.42 toks/s, output: 32.14 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.59s/it, est. speed input: 568.42 toks/s, output: 32.14 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.59s/it, est. speed input: 568.42 toks/s, output: 32.14 toks/s]
+  fz-032 B-fp8 out_tokens=469 wall=14.6s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 31.72it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.61s/it, est. speed input: 352.77 toks/s, output: 33.20 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.61s/it, est. speed input: 352.77 toks/s, output: 33.20 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.61s/it, est. speed input: 352.77 toks/s, output: 33.20 toks/s]
+  fz-033 B-fp8 out_tokens=784 wall=23.6s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 23.28it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:27<00:00, 27.07s/it, est. speed input: 610.12 toks/s, output: 28.74 toks/s]Processed prompts: 100%|██████████| 1/1 [00:27<00:00, 27.07s/it, est. speed input: 610.12 toks/s, output: 28.74 toks/s]Processed prompts: 100%|██████████| 1/1 [00:27<00:00, 27.07s/it, est. speed input: 610.12 toks/s, output: 28.74 toks/s]
+  fz-034 B-fp8 out_tokens=778 wall=27.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 33.99it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.31s/it, est. speed input: 896.11 toks/s, output: 27.20 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.31s/it, est. speed input: 896.11 toks/s, output: 27.20 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.31s/it, est. speed input: 896.11 toks/s, output: 27.20 toks/s]
+  fz-035 B-fp8 out_tokens=498 wall=18.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 39.18it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.23s/it, est. speed input: 904.53 toks/s, output: 27.10 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.23s/it, est. speed input: 904.53 toks/s, output: 27.10 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.23s/it, est. speed input: 904.53 toks/s, output: 27.10 toks/s]
+  fz-036 B-fp8 out_tokens=494 wall=18.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.00it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.08s/it, est. speed input: 632.78 toks/s, output: 28.64 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.08s/it, est. speed input: 632.78 toks/s, output: 28.64 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.09s/it, est. speed input: 632.78 toks/s, output: 28.64 toks/s]
+  fz-037 B-fp8 out_tokens=747 wall=26.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.94it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.89s/it, est. speed input: 1105.36 toks/s, output: 26.05 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.89s/it, est. speed input: 1105.36 toks/s, output: 26.05 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.89s/it, est. speed input: 1105.36 toks/s, output: 26.05 toks/s]
+  fz-038 B-fp8 out_tokens=388 wall=14.9s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.52it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.06s/it, est. speed input: 820.18 toks/s, output: 27.67 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.06s/it, est. speed input: 820.18 toks/s, output: 27.67 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.06s/it, est. speed input: 820.18 toks/s, output: 27.67 toks/s]
+  fz-039 B-fp8 out_tokens=555 wall=20.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 36.05it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.69s/it, est. speed input: 616.97 toks/s, output: 28.81 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.69s/it, est. speed input: 616.97 toks/s, output: 28.81 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.69s/it, est. speed input: 616.97 toks/s, output: 28.81 toks/s]
+  fz-040 B-fp8 out_tokens=769 wall=26.7s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.87it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.01s/it, est. speed input: 747.41 toks/s, output: 28.08 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.01s/it, est. speed input: 747.41 toks/s, output: 28.08 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.01s/it, est. speed input: 747.41 toks/s, output: 28.08 toks/s]
+  fz-041 B-fp8 out_tokens=618 wall=22.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.15it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.79s/it, est. speed input: 875.24 toks/s, output: 27.36 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.79s/it, est. speed input: 875.24 toks/s, output: 27.36 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.79s/it, est. speed input: 875.24 toks/s, output: 27.36 toks/s]
+  fz-042 B-fp8 out_tokens=514 wall=18.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 32.97it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.47s/it, est. speed input: 1439.44 toks/s, output: 24.07 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.47s/it, est. speed input: 1439.44 toks/s, output: 24.07 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.47s/it, est. speed input: 1439.44 toks/s, output: 24.07 toks/s]
+  fz-043 B-fp8 out_tokens=276 wall=11.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.71it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.48s/it, est. speed input: 647.53 toks/s, output: 28.57 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.48s/it, est. speed input: 647.53 toks/s, output: 28.57 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.48s/it, est. speed input: 647.53 toks/s, output: 28.57 toks/s]
+  fz-044 B-fp8 out_tokens=728 wall=25.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.22it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.94s/it, est. speed input: 872.31 toks/s, output: 27.29 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.94s/it, est. speed input: 872.31 toks/s, output: 27.29 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.94s/it, est. speed input: 872.31 toks/s, output: 27.29 toks/s]
+  fz-045 B-fp8 out_tokens=517 wall=19.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.83it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.31s/it, est. speed input: 1458.23 toks/s, output: 23.97 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.31s/it, est. speed input: 1458.23 toks/s, output: 23.97 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.31s/it, est. speed input: 1458.23 toks/s, output: 23.97 toks/s]
+  fz-046 B-fp8 out_tokens=271 wall=11.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.87it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.14s/it, est. speed input: 1484.27 toks/s, output: 23.79 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.14s/it, est. speed input: 1484.27 toks/s, output: 23.79 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.14s/it, est. speed input: 1484.27 toks/s, output: 23.79 toks/s]
+  fz-047 B-fp8 out_tokens=265 wall=11.2s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.20it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:27<00:00, 27.48s/it, est. speed input: 598.94 toks/s, output: 28.90 toks/s]Processed prompts: 100%|██████████| 1/1 [00:27<00:00, 27.48s/it, est. speed input: 598.94 toks/s, output: 28.90 toks/s]Processed prompts: 100%|██████████| 1/1 [00:27<00:00, 27.48s/it, est. speed input: 598.94 toks/s, output: 28.90 toks/s]
+  fz-048 B-fp8 out_tokens=794 wall=27.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.27it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.58s/it, est. speed input: 1308.94 toks/s, output: 24.89 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.58s/it, est. speed input: 1308.94 toks/s, output: 24.89 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.58s/it, est. speed input: 1308.94 toks/s, output: 24.89 toks/s]
+  fz-049 B-fp8 out_tokens=313 wall=12.6s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 99.44it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.51s/it, est. speed input: 235.29 toks/s, output: 35.64 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.51s/it, est. speed input: 235.29 toks/s, output: 35.64 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.51s/it, est. speed input: 235.29 toks/s, output: 35.64 toks/s]
+  fz-050 B-fp8 out_tokens=624 wall=17.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 75.51it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.54s/it, est. speed input: 247.81 toks/s, output: 35.61 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.54s/it, est. speed input: 247.81 toks/s, output: 35.61 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.54s/it, est. speed input: 247.81 toks/s, output: 35.61 toks/s]
+  fz-051 B-fp8 out_tokens=589 wall=16.6s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 176.12it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.10s/it, est. speed input: 274.36 toks/s, output: 35.49 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.10s/it, est. speed input: 274.36 toks/s, output: 35.49 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.10s/it, est. speed input: 274.36 toks/s, output: 35.49 toks/s]
+  fz-052 B-fp8 out_tokens=536 wall=15.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 75.25it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:08<00:00,  8.30s/it, est. speed input: 495.15 toks/s, output: 34.58 toks/s]Processed prompts: 100%|██████████| 1/1 [00:08<00:00,  8.30s/it, est. speed input: 495.15 toks/s, output: 34.58 toks/s]Processed prompts: 100%|██████████| 1/1 [00:08<00:00,  8.30s/it, est. speed input: 495.15 toks/s, output: 34.58 toks/s]
+  fz-053 B-fp8 out_tokens=287 wall=8.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 175.00it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.92s/it, est. speed input: 523.56 toks/s, output: 34.46 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.92s/it, est. speed input: 523.56 toks/s, output: 34.46 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.92s/it, est. speed input: 523.56 toks/s, output: 34.46 toks/s]
+  fz-054 B-fp8 out_tokens=273 wall=7.9s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 75.70it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.98s/it, est. speed input: 241.91 toks/s, output: 35.63 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.98s/it, est. speed input: 241.91 toks/s, output: 35.63 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.98s/it, est. speed input: 241.91 toks/s, output: 35.63 toks/s]
+  fz-055 B-fp8 out_tokens=605 wall=17.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 69.85it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.28s/it, est. speed input: 268.28 toks/s, output: 35.53 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.28s/it, est. speed input: 268.28 toks/s, output: 35.53 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.28s/it, est. speed input: 268.28 toks/s, output: 35.53 toks/s]
+  fz-056 B-fp8 out_tokens=543 wall=15.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 76.65it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.50s/it, est. speed input: 431.83 toks/s, output: 34.85 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.50s/it, est. speed input: 431.83 toks/s, output: 34.85 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.50s/it, est. speed input: 431.83 toks/s, output: 34.85 toks/s]
+  fz-057 B-fp8 out_tokens=331 wall=9.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 77.05it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.40s/it, est. speed input: 399.00 toks/s, output: 34.99 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.40s/it, est. speed input: 399.00 toks/s, output: 34.99 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.40s/it, est. speed input: 399.00 toks/s, output: 34.99 toks/s]
+  fz-058 B-fp8 out_tokens=364 wall=10.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 76.87it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.35s/it, est. speed input: 214.26 toks/s, output: 35.71 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.35s/it, est. speed input: 214.26 toks/s, output: 35.71 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.35s/it, est. speed input: 214.26 toks/s, output: 35.71 toks/s]
+  fz-059 B-fp8 out_tokens=691 wall=19.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 76.73it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:06<00:00,  6.79s/it, est. speed input: 613.96 toks/s, output: 34.04 toks/s]Processed prompts: 100%|██████████| 1/1 [00:06<00:00,  6.79s/it, est. speed input: 613.96 toks/s, output: 34.04 toks/s]Processed prompts: 100%|██████████| 1/1 [00:06<00:00,  6.79s/it, est. speed input: 613.96 toks/s, output: 34.04 toks/s]
+  fz-060 B-fp8 out_tokens=231 wall=6.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 74.47it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.69s/it, est. speed input: 354.24 toks/s, output: 35.17 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.69s/it, est. speed input: 354.24 toks/s, output: 35.17 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.69s/it, est. speed input: 354.24 toks/s, output: 35.17 toks/s]
+  fz-061 B-fp8 out_tokens=411 wall=11.7s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 48.05it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.80s/it, est. speed input: 351.16 toks/s, output: 35.18 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.80s/it, est. speed input: 351.16 toks/s, output: 35.18 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.80s/it, est. speed input: 351.16 toks/s, output: 35.18 toks/s]
+  fz-062 B-fp8 out_tokens=415 wall=11.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 78.37it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.24s/it, est. speed input: 252.54 toks/s, output: 35.59 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.24s/it, est. speed input: 252.54 toks/s, output: 35.59 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.24s/it, est. speed input: 252.54 toks/s, output: 35.59 toks/s]
+  fz-063 B-fp8 out_tokens=578 wall=16.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 177.81it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.04s/it, est. speed input: 409.45 toks/s, output: 34.98 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.04s/it, est. speed input: 409.45 toks/s, output: 34.98 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.04s/it, est. speed input: 409.45 toks/s, output: 34.98 toks/s]
+  fz-064 B-fp8 out_tokens=351 wall=10.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 179.58it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.50s/it, est. speed input: 264.64 toks/s, output: 35.54 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.50s/it, est. speed input: 264.64 toks/s, output: 35.54 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.50s/it, est. speed input: 264.64 toks/s, output: 35.54 toks/s]
+  fz-065 B-fp8 out_tokens=551 wall=15.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 136.80it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.94s/it, est. speed input: 244.26 toks/s, output: 35.60 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.94s/it, est. speed input: 244.26 toks/s, output: 35.60 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.94s/it, est. speed input: 244.26 toks/s, output: 35.60 toks/s]
+  fz-066 B-fp8 out_tokens=603 wall=16.9s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 37.29it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.41s/it, est. speed input: 571.96 toks/s, output: 32.20 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.41s/it, est. speed input: 571.96 toks/s, output: 32.20 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.41s/it, est. speed input: 571.96 toks/s, output: 32.20 toks/s]
+  fz-067 B-fp8 out_tokens=464 wall=14.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.94it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.50s/it, est. speed input: 531.81 toks/s, output: 32.40 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.50s/it, est. speed input: 531.81 toks/s, output: 32.40 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.50s/it, est. speed input: 531.81 toks/s, output: 32.40 toks/s]
+  fz-068 B-fp8 out_tokens=502 wall=15.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 59.24it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.38s/it, est. speed input: 795.15 toks/s, output: 31.03 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.38s/it, est. speed input: 795.15 toks/s, output: 31.03 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.38s/it, est. speed input: 795.15 toks/s, output: 31.03 toks/s]
+  fz-069 B-fp8 out_tokens=322 wall=10.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.06it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.28s/it, est. speed input: 798.95 toks/s, output: 31.02 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.28s/it, est. speed input: 798.95 toks/s, output: 31.02 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.28s/it, est. speed input: 798.95 toks/s, output: 31.02 toks/s]
+  fz-070 B-fp8 out_tokens=319 wall=10.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.11it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.79s/it, est. speed input: 841.73 toks/s, output: 30.76 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.79s/it, est. speed input: 841.73 toks/s, output: 30.76 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.79s/it, est. speed input: 841.73 toks/s, output: 30.76 toks/s]
+  fz-071 B-fp8 out_tokens=301 wall=9.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.67it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.22s/it, est. speed input: 476.70 toks/s, output: 32.69 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.22s/it, est. speed input: 476.70 toks/s, output: 32.69 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.22s/it, est. speed input: 476.70 toks/s, output: 32.69 toks/s]
+  fz-072 B-fp8 out_tokens=563 wall=17.2s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.21it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.01s/it, est. speed input: 748.50 toks/s, output: 31.24 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.01s/it, est. speed input: 748.50 toks/s, output: 31.24 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.01s/it, est. speed input: 748.50 toks/s, output: 31.24 toks/s]
+  fz-073 B-fp8 out_tokens=344 wall=11.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.01it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.93s/it, est. speed input: 393.56 toks/s, output: 33.06 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.93s/it, est. speed input: 393.56 toks/s, output: 33.06 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.93s/it, est. speed input: 393.56 toks/s, output: 33.06 toks/s]
+  fz-074 B-fp8 out_tokens=692 wall=21.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.75it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.52s/it, est. speed input: 862.31 toks/s, output: 30.68 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.52s/it, est. speed input: 862.31 toks/s, output: 30.68 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.52s/it, est. speed input: 862.31 toks/s, output: 30.68 toks/s]
+  fz-075 B-fp8 out_tokens=292 wall=9.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.50it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.44s/it, est. speed input: 610.90 toks/s, output: 32.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.44s/it, est. speed input: 610.90 toks/s, output: 32.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.44s/it, est. speed input: 610.90 toks/s, output: 32.00 toks/s]
+  fz-076 B-fp8 out_tokens=430 wall=13.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.72it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.73s/it, est. speed input: 1064.48 toks/s, output: 29.64 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.73s/it, est. speed input: 1064.48 toks/s, output: 29.64 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.73s/it, est. speed input: 1064.48 toks/s, output: 29.64 toks/s]
+  fz-077 B-fp8 out_tokens=229 wall=7.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.88it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:08<00:00,  8.95s/it, est. speed input: 916.26 toks/s, output: 30.39 toks/s]Processed prompts: 100%|██████████| 1/1 [00:08<00:00,  8.95s/it, est. speed input: 916.26 toks/s, output: 30.39 toks/s]Processed prompts: 100%|██████████| 1/1 [00:08<00:00,  8.95s/it, est. speed input: 916.26 toks/s, output: 30.39 toks/s]
+  fz-078 B-fp8 out_tokens=272 wall=9.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.15it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.76s/it, est. speed input: 417.01 toks/s, output: 32.99 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.76s/it, est. speed input: 417.01 toks/s, output: 32.99 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.77s/it, est. speed input: 417.01 toks/s, output: 32.99 toks/s]
+  fz-079 B-fp8 out_tokens=652 wall=19.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.86it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.12s/it, est. speed input: 509.39 toks/s, output: 32.52 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.12s/it, est. speed input: 509.39 toks/s, output: 32.52 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.12s/it, est. speed input: 509.39 toks/s, output: 32.52 toks/s]
+  fz-080 B-fp8 out_tokens=524 wall=16.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 43.30it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.41s/it, est. speed input: 444.95 toks/s, output: 32.80 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.41s/it, est. speed input: 444.95 toks/s, output: 32.80 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.41s/it, est. speed input: 444.95 toks/s, output: 32.80 toks/s]
+  fz-081 B-fp8 out_tokens=604 wall=18.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.26it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.30s/it, est. speed input: 353.81 toks/s, output: 33.30 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.30s/it, est. speed input: 353.81 toks/s, output: 33.30 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.30s/it, est. speed input: 353.81 toks/s, output: 33.30 toks/s]
+  fz-082 B-fp8 out_tokens=776 wall=23.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 43.07it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.86s/it, est. speed input: 518.84 toks/s, output: 32.47 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.86s/it, est. speed input: 518.84 toks/s, output: 32.47 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.86s/it, est. speed input: 518.84 toks/s, output: 32.47 toks/s]
+  fz-083 B-fp8 out_tokens=515 wall=15.9s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 24.96it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:21<00:00, 21.68s/it, est. speed input: 757.77 toks/s, output: 28.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:21<00:00, 21.68s/it, est. speed input: 757.77 toks/s, output: 28.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:21<00:00, 21.68s/it, est. speed input: 757.77 toks/s, output: 28.00 toks/s]
+  fz-084 B-fp8 out_tokens=607 wall=21.7s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 23.21it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.31s/it, est. speed input: 649.27 toks/s, output: 28.61 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.31s/it, est. speed input: 649.27 toks/s, output: 28.61 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.31s/it, est. speed input: 649.27 toks/s, output: 28.61 toks/s]
+  fz-085 B-fp8 out_tokens=724 wall=25.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.50it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.11s/it, est. speed input: 959.23 toks/s, output: 26.89 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.11s/it, est. speed input: 959.23 toks/s, output: 26.89 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.11s/it, est. speed input: 959.23 toks/s, output: 26.89 toks/s]
+  fz-086 B-fp8 out_tokens=460 wall=17.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 29.93it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.79s/it, est. speed input: 924.05 toks/s, output: 27.09 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.79s/it, est. speed input: 924.05 toks/s, output: 27.09 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.79s/it, est. speed input: 924.05 toks/s, output: 27.09 toks/s]
+  fz-087 B-fp8 out_tokens=482 wall=17.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.53it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.93s/it, est. speed input: 633.57 toks/s, output: 28.69 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.93s/it, est. speed input: 633.57 toks/s, output: 28.69 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.93s/it, est. speed input: 633.57 toks/s, output: 28.69 toks/s]
+  fz-088 B-fp8 out_tokens=744 wall=26.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 36.45it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.10s/it, est. speed input: 906.94 toks/s, output: 27.19 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.10s/it, est. speed input: 906.94 toks/s, output: 27.19 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.10s/it, est. speed input: 906.94 toks/s, output: 27.19 toks/s]
+  fz-089 B-fp8 out_tokens=492 wall=18.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.94it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.58s/it, est. speed input: 989.44 toks/s, output: 26.71 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.58s/it, est. speed input: 989.44 toks/s, output: 26.71 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.58s/it, est. speed input: 989.44 toks/s, output: 26.71 toks/s]
+  fz-090 B-fp8 out_tokens=443 wall=16.6s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.26it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.24s/it, est. speed input: 1078.70 toks/s, output: 26.19 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.24s/it, est. speed input: 1078.70 toks/s, output: 26.19 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.24s/it, est. speed input: 1078.70 toks/s, output: 26.19 toks/s]
+  fz-091 B-fp8 out_tokens=399 wall=15.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.65it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.13s/it, est. speed input: 858.63 toks/s, output: 27.45 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.13s/it, est. speed input: 858.63 toks/s, output: 27.45 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.13s/it, est. speed input: 858.63 toks/s, output: 27.45 toks/s]
+  fz-092 B-fp8 out_tokens=525 wall=19.2s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.72it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.13s/it, est. speed input: 653.62 toks/s, output: 28.57 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.13s/it, est. speed input: 653.62 toks/s, output: 28.57 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.13s/it, est. speed input: 653.62 toks/s, output: 28.57 toks/s]
+  fz-093 B-fp8 out_tokens=718 wall=25.2s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 37.42it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.77s/it, est. speed input: 1393.75 toks/s, output: 24.39 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.77s/it, est. speed input: 1393.75 toks/s, output: 24.39 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.77s/it, est. speed input: 1393.75 toks/s, output: 24.39 toks/s]
+  fz-094 B-fp8 out_tokens=287 wall=11.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.48it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:24<00:00, 24.15s/it, est. speed input: 679.84 toks/s, output: 28.45 toks/s]Processed prompts: 100%|██████████| 1/1 [00:24<00:00, 24.15s/it, est. speed input: 679.84 toks/s, output: 28.45 toks/s]Processed prompts: 100%|██████████| 1/1 [00:24<00:00, 24.15s/it, est. speed input: 679.84 toks/s, output: 28.45 toks/s]
+  fz-095 B-fp8 out_tokens=687 wall=24.2s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 36.24it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.18s/it, est. speed input: 1348.67 toks/s, output: 24.64 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.18s/it, est. speed input: 1348.67 toks/s, output: 24.64 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.18s/it, est. speed input: 1348.67 toks/s, output: 24.64 toks/s]
+  fz-096 B-fp8 out_tokens=300 wall=12.2s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.18it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.04s/it, est. speed input: 655.98 toks/s, output: 28.55 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.04s/it, est. speed input: 655.98 toks/s, output: 28.55 toks/s]Processed prompts: 100%|██████████| 1/1 [00:25<00:00, 25.04s/it, est. speed input: 655.98 toks/s, output: 28.55 toks/s]
+  fz-097 B-fp8 out_tokens=715 wall=25.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.69it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.52s/it, est. speed input: 1129.41 toks/s, output: 25.90 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.52s/it, est. speed input: 1129.41 toks/s, output: 25.90 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.52s/it, est. speed input: 1129.41 toks/s, output: 25.90 toks/s]
+  fz-098 B-fp8 out_tokens=376 wall=14.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.81it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.65s/it, est. speed input: 615.21 toks/s, output: 28.81 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.65s/it, est. speed input: 615.21 toks/s, output: 28.81 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.65s/it, est. speed input: 615.21 toks/s, output: 28.81 toks/s]
+  fz-099 B-fp8 out_tokens=768 wall=26.7s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 92.60it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.27s/it, est. speed input: 369.81 toks/s, output: 35.06 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.27s/it, est. speed input: 369.81 toks/s, output: 35.06 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.27s/it, est. speed input: 369.81 toks/s, output: 35.06 toks/s]
+  fz-100 B-fp8 out_tokens=395 wall=11.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 70.12it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.50s/it, est. speed input: 213.12 toks/s, output: 35.69 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.50s/it, est. speed input: 213.12 toks/s, output: 35.69 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.50s/it, est. speed input: 213.12 toks/s, output: 35.69 toks/s]
+  fz-101 B-fp8 out_tokens=696 wall=19.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 64.54it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.65s/it, est. speed input: 232.91 toks/s, output: 35.64 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.65s/it, est. speed input: 232.91 toks/s, output: 35.64 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.65s/it, est. speed input: 232.91 toks/s, output: 35.64 toks/s]
+  fz-102 B-fp8 out_tokens=629 wall=17.7s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 74.06it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.03s/it, est. speed input: 316.94 toks/s, output: 35.31 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.03s/it, est. speed input: 316.94 toks/s, output: 35.31 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.03s/it, est. speed input: 316.94 toks/s, output: 35.31 toks/s]
+  fz-103 B-fp8 out_tokens=460 wall=13.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 71.49it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.28s/it, est. speed input: 404.91 toks/s, output: 34.93 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.28s/it, est. speed input: 404.91 toks/s, output: 34.93 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.28s/it, est. speed input: 404.91 toks/s, output: 34.93 toks/s]
+  fz-104 B-fp8 out_tokens=359 wall=10.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 71.49it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.35s/it, est. speed input: 399.90 toks/s, output: 34.98 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.35s/it, est. speed input: 399.90 toks/s, output: 34.98 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.35s/it, est. speed input: 399.90 toks/s, output: 34.98 toks/s]
+  fz-105 B-fp8 out_tokens=362 wall=10.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 67.15it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.74s/it, est. speed input: 312.87 toks/s, output: 35.22 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.74s/it, est. speed input: 312.87 toks/s, output: 35.22 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.74s/it, est. speed input: 312.87 toks/s, output: 35.22 toks/s]
+  fz-106 B-fp8 out_tokens=484 wall=13.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 73.78it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.20s/it, est. speed input: 448.75 toks/s, output: 34.78 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.20s/it, est. speed input: 448.75 toks/s, output: 34.78 toks/s]Processed prompts: 100%|██████████| 1/1 [00:09<00:00,  9.20s/it, est. speed input: 448.75 toks/s, output: 34.78 toks/s]
+  fz-107 B-fp8 out_tokens=320 wall=9.2s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 73.54it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.37s/it, est. speed input: 366.76 toks/s, output: 35.08 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.37s/it, est. speed input: 366.76 toks/s, output: 35.08 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.37s/it, est. speed input: 366.76 toks/s, output: 35.08 toks/s]
+  fz-108 B-fp8 out_tokens=399 wall=11.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 71.83it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.48s/it, est. speed input: 285.03 toks/s, output: 35.43 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.48s/it, est. speed input: 285.03 toks/s, output: 35.43 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.48s/it, est. speed input: 285.03 toks/s, output: 35.43 toks/s]
+  fz-109 B-fp8 out_tokens=513 wall=14.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 72.07it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.80s/it, est. speed input: 244.33 toks/s, output: 35.60 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.80s/it, est. speed input: 244.33 toks/s, output: 35.60 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.80s/it, est. speed input: 244.33 toks/s, output: 35.60 toks/s]
+  fz-110 B-fp8 out_tokens=598 wall=16.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 70.38it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.52s/it, est. speed input: 332.29 toks/s, output: 35.23 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.52s/it, est. speed input: 332.29 toks/s, output: 35.23 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.52s/it, est. speed input: 332.29 toks/s, output: 35.23 toks/s]
+  fz-111 B-fp8 out_tokens=441 wall=12.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 59.25it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.31s/it, est. speed input: 261.99 toks/s, output: 35.43 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.31s/it, est. speed input: 261.99 toks/s, output: 35.43 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.31s/it, est. speed input: 261.99 toks/s, output: 35.43 toks/s]
+  fz-112 B-fp8 out_tokens=578 wall=16.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 51.55it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.94s/it, est. speed input: 269.74 toks/s, output: 35.38 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.94s/it, est. speed input: 269.74 toks/s, output: 35.38 toks/s]Processed prompts: 100%|██████████| 1/1 [00:15<00:00, 15.94s/it, est. speed input: 269.74 toks/s, output: 35.38 toks/s]
+  fz-113 B-fp8 out_tokens=564 wall=16.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 64.80it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.90s/it, est. speed input: 523.60 toks/s, output: 34.44 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.90s/it, est. speed input: 523.60 toks/s, output: 34.44 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.90s/it, est. speed input: 523.60 toks/s, output: 34.44 toks/s]
+  fz-114 B-fp8 out_tokens=272 wall=7.9s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 70.78it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.96s/it, est. speed input: 207.36 toks/s, output: 35.72 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.96s/it, est. speed input: 207.36 toks/s, output: 35.72 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.96s/it, est. speed input: 207.36 toks/s, output: 35.72 toks/s]
+  fz-115 B-fp8 out_tokens=713 wall=20.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 69.91it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.54s/it, est. speed input: 543.47 toks/s, output: 34.35 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.54s/it, est. speed input: 543.47 toks/s, output: 34.35 toks/s]Processed prompts: 100%|██████████| 1/1 [00:07<00:00,  7.54s/it, est. speed input: 543.47 toks/s, output: 34.35 toks/s]
+  fz-116 B-fp8 out_tokens=259 wall=7.6s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 33.18it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:21<00:00, 21.19s/it, est. speed input: 388.93 toks/s, output: 33.13 toks/s]Processed prompts: 100%|██████████| 1/1 [00:21<00:00, 21.19s/it, est. speed input: 388.93 toks/s, output: 33.13 toks/s]Processed prompts: 100%|██████████| 1/1 [00:21<00:00, 21.19s/it, est. speed input: 388.93 toks/s, output: 33.13 toks/s]
+  fz-117 B-fp8 out_tokens=702 wall=21.2s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.58it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.54s/it, est. speed input: 658.15 toks/s, output: 31.74 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.54s/it, est. speed input: 658.15 toks/s, output: 31.74 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.54s/it, est. speed input: 658.15 toks/s, output: 31.74 toks/s]
+  fz-118 B-fp8 out_tokens=398 wall=12.6s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.94it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.88s/it, est. speed input: 489.72 toks/s, output: 32.58 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.88s/it, est. speed input: 489.72 toks/s, output: 32.58 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.88s/it, est. speed input: 489.72 toks/s, output: 32.58 toks/s]
+  fz-119 B-fp8 out_tokens=550 wall=16.9s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.44it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.03s/it, est. speed input: 593.96 toks/s, output: 31.99 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.03s/it, est. speed input: 593.96 toks/s, output: 31.99 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.03s/it, est. speed input: 593.96 toks/s, output: 31.99 toks/s]
+  fz-120 B-fp8 out_tokens=449 wall=14.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 84.45it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.31s/it, est. speed input: 407.65 toks/s, output: 33.03 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.31s/it, est. speed input: 407.65 toks/s, output: 33.03 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.31s/it, est. speed input: 407.65 toks/s, output: 33.03 toks/s]
+  fz-121 B-fp8 out_tokens=671 wall=20.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 47.92it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.94s/it, est. speed input: 691.21 toks/s, output: 31.57 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.94s/it, est. speed input: 691.21 toks/s, output: 31.57 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.94s/it, est. speed input: 691.21 toks/s, output: 31.57 toks/s]
+  fz-122 B-fp8 out_tokens=377 wall=12.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 44.31it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.77s/it, est. speed input: 397.15 toks/s, output: 33.08 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.77s/it, est. speed input: 397.15 toks/s, output: 33.08 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.77s/it, est. speed input: 397.15 toks/s, output: 33.08 toks/s]
+  fz-123 B-fp8 out_tokens=687 wall=20.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 37.30it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.63s/it, est. speed input: 563.23 toks/s, output: 32.26 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.63s/it, est. speed input: 563.23 toks/s, output: 32.26 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.63s/it, est. speed input: 563.23 toks/s, output: 32.26 toks/s]
+  fz-124 B-fp8 out_tokens=472 wall=14.7s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 48.41it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.79s/it, est. speed input: 361.18 toks/s, output: 33.26 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.79s/it, est. speed input: 361.18 toks/s, output: 33.26 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.79s/it, est. speed input: 361.18 toks/s, output: 33.26 toks/s]
+  fz-125 B-fp8 out_tokens=758 wall=22.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 45.13it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.71s/it, est. speed input: 492.46 toks/s, output: 32.61 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.71s/it, est. speed input: 492.46 toks/s, output: 32.61 toks/s]Processed prompts: 100%|██████████| 1/1 [00:16<00:00, 16.71s/it, est. speed input: 492.46 toks/s, output: 32.61 toks/s]
+  fz-126 B-fp8 out_tokens=545 wall=16.7s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.44it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.72s/it, est. speed input: 707.01 toks/s, output: 31.49 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.72s/it, est. speed input: 707.01 toks/s, output: 31.49 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.72s/it, est. speed input: 707.01 toks/s, output: 31.49 toks/s]
+  fz-127 B-fp8 out_tokens=369 wall=11.7s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 43.19it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.97s/it, est. speed input: 758.01 toks/s, output: 31.17 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.97s/it, est. speed input: 758.01 toks/s, output: 31.17 toks/s]Processed prompts: 100%|██████████| 1/1 [00:10<00:00, 10.97s/it, est. speed input: 758.01 toks/s, output: 31.17 toks/s]
+  fz-128 B-fp8 out_tokens=342 wall=11.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 45.06it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:08<00:00,  8.04s/it, est. speed input: 1029.43 toks/s, output: 29.74 toks/s]Processed prompts: 100%|██████████| 1/1 [00:08<00:00,  8.04s/it, est. speed input: 1029.43 toks/s, output: 29.74 toks/s]Processed prompts: 100%|██████████| 1/1 [00:08<00:00,  8.04s/it, est. speed input: 1029.43 toks/s, output: 29.74 toks/s]
+  fz-129 B-fp8 out_tokens=239 wall=8.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.97it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.34s/it, est. speed input: 409.44 toks/s, output: 32.93 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.34s/it, est. speed input: 409.44 toks/s, output: 32.93 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.35s/it, est. speed input: 409.44 toks/s, output: 32.93 toks/s]
+  fz-130 B-fp8 out_tokens=670 wall=20.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.80it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.75s/it, est. speed input: 415.61 toks/s, output: 33.01 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.75s/it, est. speed input: 415.61 toks/s, output: 33.01 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.75s/it, est. speed input: 415.61 toks/s, output: 33.01 toks/s]
+  fz-131 B-fp8 out_tokens=652 wall=19.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 41.09it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.82s/it, est. speed input: 553.02 toks/s, output: 32.25 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.82s/it, est. speed input: 553.02 toks/s, output: 32.25 toks/s]Processed prompts: 100%|██████████| 1/1 [00:14<00:00, 14.82s/it, est. speed input: 553.02 toks/s, output: 32.25 toks/s]
+  fz-132 B-fp8 out_tokens=478 wall=14.8s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 40.85it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.53s/it, est. speed input: 350.56 toks/s, output: 33.31 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.53s/it, est. speed input: 350.56 toks/s, output: 33.31 toks/s]Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.53s/it, est. speed input: 350.56 toks/s, output: 33.31 toks/s]
+  fz-133 B-fp8 out_tokens=784 wall=23.6s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 23.96it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.88s/it, est. speed input: 1190.42 toks/s, output: 25.50 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.88s/it, est. speed input: 1190.42 toks/s, output: 25.50 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.88s/it, est. speed input: 1190.42 toks/s, output: 25.50 toks/s]
+  fz-134 B-fp8 out_tokens=354 wall=13.9s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 39.67it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.21s/it, est. speed input: 816.32 toks/s, output: 27.62 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.21s/it, est. speed input: 816.32 toks/s, output: 27.62 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.21s/it, est. speed input: 816.32 toks/s, output: 27.62 toks/s]
+  fz-135 B-fp8 out_tokens=558 wall=20.2s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.84it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.57s/it, est. speed input: 933.24 toks/s, output: 27.03 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.57s/it, est. speed input: 933.24 toks/s, output: 27.03 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.57s/it, est. speed input: 933.24 toks/s, output: 27.03 toks/s]
+  fz-136 B-fp8 out_tokens=475 wall=17.6s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 36.51it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 21.00s/it, est. speed input: 787.07 toks/s, output: 27.76 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 21.00s/it, est. speed input: 787.07 toks/s, output: 27.76 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 21.00s/it, est. speed input: 787.07 toks/s, output: 27.76 toks/s]
+  fz-137 B-fp8 out_tokens=583 wall=21.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 43.68it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.46s/it, est. speed input: 893.87 toks/s, output: 27.19 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.46s/it, est. speed input: 893.87 toks/s, output: 27.19 toks/s]Processed prompts: 100%|██████████| 1/1 [00:18<00:00, 18.46s/it, est. speed input: 893.87 toks/s, output: 27.19 toks/s]
+  fz-138 B-fp8 out_tokens=502 wall=18.5s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 40.89it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.28s/it, est. speed input: 1349.46 toks/s, output: 24.59 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.28s/it, est. speed input: 1349.46 toks/s, output: 24.59 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.28s/it, est. speed input: 1349.46 toks/s, output: 24.59 toks/s]
+  fz-139 B-fp8 out_tokens=302 wall=12.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.63it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.35s/it, est. speed input: 1330.90 toks/s, output: 24.77 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.35s/it, est. speed input: 1330.90 toks/s, output: 24.77 toks/s]Processed prompts: 100%|██████████| 1/1 [00:12<00:00, 12.35s/it, est. speed input: 1330.90 toks/s, output: 24.77 toks/s]
+  fz-140 B-fp8 out_tokens=306 wall=12.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.40it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.17s/it, est. speed input: 814.58 toks/s, output: 27.66 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.17s/it, est. speed input: 814.58 toks/s, output: 27.66 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.17s/it, est. speed input: 814.58 toks/s, output: 27.66 toks/s]
+  fz-141 B-fp8 out_tokens=558 wall=20.2s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 30.61it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.24s/it, est. speed input: 852.34 toks/s, output: 27.49 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.24s/it, est. speed input: 852.34 toks/s, output: 27.49 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.24s/it, est. speed input: 852.34 toks/s, output: 27.49 toks/s]
+  fz-142 B-fp8 out_tokens=529 wall=19.3s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 40.80it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.03s/it, est. speed input: 824.49 toks/s, output: 27.56 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.03s/it, est. speed input: 824.49 toks/s, output: 27.56 toks/s]Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.03s/it, est. speed input: 824.49 toks/s, output: 27.56 toks/s]
+  fz-143 B-fp8 out_tokens=552 wall=20.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 34.64it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.00s/it, est. speed input: 749.38 toks/s, output: 27.99 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.00s/it, est. speed input: 749.38 toks/s, output: 27.99 toks/s]Processed prompts: 100%|██████████| 1/1 [00:22<00:00, 22.01s/it, est. speed input: 749.38 toks/s, output: 27.99 toks/s]
+  fz-144 B-fp8 out_tokens=616 wall=22.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 33.91it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.94s/it, est. speed input: 1183.97 toks/s, output: 25.54 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.94s/it, est. speed input: 1183.97 toks/s, output: 25.54 toks/s]Processed prompts: 100%|██████████| 1/1 [00:13<00:00, 13.94s/it, est. speed input: 1183.97 toks/s, output: 25.54 toks/s]
+  fz-145 B-fp8 out_tokens=356 wall=14.0s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 43.98it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.12s/it, est. speed input: 1475.53 toks/s, output: 23.92 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.12s/it, est. speed input: 1475.53 toks/s, output: 23.92 toks/s]Processed prompts: 100%|██████████| 1/1 [00:11<00:00, 11.12s/it, est. speed input: 1475.53 toks/s, output: 23.92 toks/s]
+  fz-146 B-fp8 out_tokens=266 wall=11.1s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 35.60it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.68s/it, est. speed input: 834.92 toks/s, output: 27.54 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.68s/it, est. speed input: 834.92 toks/s, output: 27.54 toks/s]Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.68s/it, est. speed input: 834.92 toks/s, output: 27.54 toks/s]
+  fz-147 B-fp8 out_tokens=542 wall=19.7s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 42.90it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.34s/it, est. speed input: 952.57 toks/s, output: 26.81 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.34s/it, est. speed input: 952.57 toks/s, output: 26.81 toks/s]Processed prompts: 100%|██████████| 1/1 [00:17<00:00, 17.35s/it, est. speed input: 952.57 toks/s, output: 26.81 toks/s]
+  fz-148 B-fp8 out_tokens=465 wall=17.4s
+Rendering prompts:   0%|          | 0/1 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 1/1 [00:00<00:00, 43.09it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.42s/it, est. speed input: 622.84 toks/s, output: 28.77 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.42s/it, est. speed input: 622.84 toks/s, output: 28.77 toks/s]Processed prompts: 100%|██████████| 1/1 [00:26<00:00, 26.42s/it, est. speed input: 622.84 toks/s, output: 28.77 toks/s]
+  fz-149 B-fp8 out_tokens=760 wall=26.4s
+arm B-fp8 phase done
+(MainProcess pid=5800) INFO 10-06 07:21:17 [utils.py:638] [shutdown] Process manager: send sigterm to process EngineCore
+(EngineCore pid=6178) INFO 10-06 07:21:17 [core.py:1409] [shutdown] EngineCore: trigger received signal=SIGTERM
+(EngineCore pid=6178) INFO 10-06 07:21:17 [core.py:1558] [shutdown] EngineCore: start mode=abort timeout=0s
+(EngineCore pid=6178) INFO 10-06 07:21:17 [core.py:1589] [shutdown] EngineCore: request processing complete; starting resource teardown
+(EngineCore pid=6178) INFO 10-06 07:21:17 [core.py:1422] [shutdown] EngineCore: exiting busy loop
+(MainProcess pid=5800) WARNING 10-06 07:21:20 [core_client.py:809] [shutdown] MPClient: engine core exited unexpectedly; starting cleanup
+(MainProcess pid=5800) INFO 10-06 07:21:20 [core_client.py:762] [shutdown] MPClient: start timeout=default
+(MainProcess pid=5800) INFO 10-06 07:21:20 [core_client.py:764] [shutdown] MPClient: stopping engine manager
+(MainProcess pid=5800) INFO 10-06 07:21:20 [core_client.py:766] [shutdown] MPClient: engine manager stopped
+(MainProcess pid=5800) INFO 10-06 07:21:20 [core_client.py:767] [shutdown] MPClient: cleaning up background resources
+(MainProcess pid=5800) INFO 10-06 07:21:20 [core_client.py:769] [shutdown] MPClient: complete
+
+=== 5. blind judging (judge sees no arm labels; blind seed 20261007) ===
+judge model selected: deepseek/deepseek-chat-v3-0324 (probe ok)
+blind map built (seed=20261007): 150 items
+judge resume: 0 already judged, est. spent so far $0.000 (budget guard $45)
+<stdin>:172: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  judged fz-000 (1/150), est. spent $0.002
+  judged fz-009 (10/150), est. spent $0.016
+  judged fz-019 (20/150), est. spent $0.035
+  judged fz-029 (30/150), est. spent $0.062
+  judged fz-039 (40/150), est. spent $0.103
+  judged fz-049 (50/150), est. spent $0.153
+  judged fz-059 (60/150), est. spent $0.169
+  judged fz-069 (70/150), est. spent $0.189
+  judged fz-079 (80/150), est. spent $0.216
+  judged fz-089 (90/150), est. spent $0.259
+  judged fz-099 (100/150), est. spent $0.310
+  judged fz-109 (110/150), est. spent $0.325
+  judged fz-119 (120/150), est. spent $0.344
+  judged fz-129 (130/150), est. spent $0.371
+  judged fz-139 (140/150), est. spent $0.412
+  judged fz-149 (150/150), est. spent $0.461
+judge phase done: new=150 failed=0 total_judged=150/150 est_spent=$0.461
+
+=== 6. quality-gate verdict (recomputed from archived logs) ===
+STAGE 06 VERDICT — L5 BLIND QUALITY GATE
+tolerance=0.1 (10-pt scale; pre-registered: quality degradation > 0.1 -> FAIL)
+judge blinded to arm identity; judge model archived per row
+
+  frozen_set.jsonl: sha256=728b2f8354701a301467afaf52d643d12a679af5c41542bb1701634e4235cf7d
+  gen_A.jsonl: sha256=51f5ecac58050fa92fc37e12427e8db6af941180a13112bcc2f30c194c5916c7
+  gen_B.jsonl: sha256=7aa9030e5018824387a38b8e70b02420d4d217a74bae225788c8246b98351b0c
+  judge_raw.jsonl: sha256=93406dd3d8cac473ca2900d5202d0c2bd20c924d7eaf75e268e2c1a0359931f4
+  blind_map.jsonl: sha256=380a36a652f64065dae3d8d8846161d7e62a962eb5f6c9d06c3a7e1e8a1079a5
+
+judged items: 150 / 150
+
+judge model(s) used: deepseek/deepseek-chat-v3-0324
+
+[per-axis results: mean over 150 items, 10-pt scale]
+  correctness           : A(bf16)=6.487  B(fp8)=6.700  delta=+0.213
+  instruction_following : A(bf16)=6.087  B(fp8)=6.267  delta=+0.180
+  clarity               : A(bf16)=5.820  B(fp8)=5.873  delta=+0.053
+
+[overall] pooled delta (B - A): +0.149
+
+criterion: overall delta >= -0.1 AND every axis delta >= -0.1  ->  PASS
+
+[descriptive] textually identical outputs across arms: 0/150
+[descriptive] per-form pooled delta (B - A):
+  doc_qa          : -0.387 (n=50)
+  code_completion : +0.973 (n=50)
+  summarization   : -0.140 (n=50)
+
+[descriptive] 95% bootstrap CI of overall delta: [-0.144, +0.451] (seed=20261006, resamples=100000; the gate decision uses the point estimates above, per protocol)
+
+This file is reproducible from the archived logs alone: bash stages/06-quality-gate.sh --verify <run_dir>
+STAGE 06 QUALITY GATE: COMPLETE ✅ (genA=150 genB=150 judged=150; see verdict_q.txt)
