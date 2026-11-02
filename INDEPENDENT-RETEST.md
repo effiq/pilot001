@@ -21,7 +21,11 @@ point estimates to the last decimal.
 ## Track 1 — audit / recompute (no GPU)
 
 Requirements: Linux or macOS, `bash`, `python3` ≥ 3.10 with `numpy`. Nothing
-else. No network beyond the initial clone.
+else. No network beyond the initial clone. On Debian/Ubuntu (incl. WSL):
+`sudo apt install -y python3-numpy`; elsewhere: `pip3 install numpy`.
+
+If `~/effiq/pilot001` already exists from an older clone, move it aside first:
+`mv ~/effiq/pilot001 ~/effiq/pilot001-old` (and `rm -f ~/effiq/pilot-logs`).
 
 ```bash
 mkdir -p ~/effiq && cd ~/effiq
